@@ -2,7 +2,10 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.AgroShop" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_200</item>
+        <item name="hintTextColor" tools:targetApi="l">@color/black</item>
     </style>
 
     <style name="Theme.AgroShop" parent="Base.Theme.AgroShop" />
