@@ -52,5 +52,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
     implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
 
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
 }

@@ -1,9 +1,17 @@
 package Models;
 
 public class FarmersModel {
-   String Id,Name,Location,Time,P_picture,Phone,Email,Password,Designation;
+   String Id,Name,Location,Time,PictureUri,Phone,Email,Password,Designation;
 
     public FarmersModel() {
+    }
+
+    public String getPictureUri() {
+        return PictureUri;
+    }
+
+    public void setPictureUri(String pictureUri) {
+        PictureUri = pictureUri;
     }
 
     public String getId() {
@@ -38,13 +46,6 @@ public class FarmersModel {
         Time = time;
     }
 
-    public String getP_picture() {
-        return P_picture;
-    }
-
-    public void setP_picture(String p_picture) {
-        P_picture = p_picture;
-    }
 
     public String getPhone() {
         return Phone;

@@ -228,7 +228,7 @@ android:layout_marginTop="8dp"
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/SignupBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -244,7 +244,7 @@ android:layout_marginTop="8dp"
                     app:layout_constraintVertical_bias="0.587" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/gotologinActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -256,7 +256,7 @@ android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button"
+                    app:layout_constraintTop_toBottomOf="@+id/SignupBtn"
                     app:layout_constraintVertical_bias="0.047" />
 
                 <LinearLayout
