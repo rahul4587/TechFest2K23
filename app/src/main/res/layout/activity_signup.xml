@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".SignupActivity"
     style="@style/Base.Theme.AgroShop"
+
     android:layout_margin="2dp">
 
     <TextView
@@ -63,6 +64,8 @@ app:hintEnabled="true"
                     android:inputType="textCapCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +89,8 @@ app:hintEnabled="true"
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -100,6 +105,8 @@ app:hintEnabled="true"
                 app:boxBackgroundColor="@color/purple_200"
                 app:boxStrokeColor="@color/teal_200"
                 app:hintEnabled="true"
+                app:passwordToggleTint="@color/white"
+                app:passwordToggleEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
 
@@ -107,9 +114,13 @@ app:hintEnabled="true"
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/Password"
                     android:inputType="textPassword"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     />
+
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,6 +144,8 @@ app:hintEnabled="true"
                     android:inputType="textCapCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -156,6 +169,8 @@ app:hintEnabled="true"
                     android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
