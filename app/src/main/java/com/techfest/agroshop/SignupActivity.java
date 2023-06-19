@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -15,16 +16,22 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +44,6 @@ import com.squareup.picasso.Picasso;
 import com.techfest.agroshop.databinding.ActivitySignupBinding;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 import Models.FarmersModel;
 
@@ -49,6 +55,8 @@ DatabaseReference databaseReference=database.getReference("Users");
 FirebaseStorage storage=FirebaseStorage.getInstance();
 ActivityResultLauncher<String> resultLauncher;
     ProgressDialog progressDialog;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
     HashMap<String, Object> signinmap=new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,12 +138,16 @@ ActivityResultLauncher<String> resultLauncher;
         checkDataAvailability();
     }
 });
-
+        gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build();
+        gsc=GoogleSignIn.getClient(this,gso);
       //Sign in with google
         activitySignupBinding.GoogleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent signInIntent = gsc.getSignInIntent();
+                startActivityForResult(signInIntent, 1000);
             }
         });
 
@@ -267,5 +279,36 @@ activitySignupBinding.spinnerLanguages.setPrompt("Required");
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1000){
+            Task<GoogleSignInAccount> task= GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account=task.getResult(ApiException.class);
+                // Toast.makeText(SignupActivity.this, "Signed in", Toast.LENGTH_SHORT).show();
+
+                firebasewithgoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebasewithgoogle(GoogleSignInAccount account) {
+        AuthCredential credential= GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(SignupActivity.this, "Signed in", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(SignupActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
 }
