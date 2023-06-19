@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AgroShop</string>
+    <string-array name="Designation">
+        <item>Select Designation</item>
+        <item>Farmer</item>
+        <item>Carrier</item>
+        <item>Distributor</item>
+
+    </string-array>
 </resources>
