@@ -65,6 +65,7 @@
                 android:drawableTint="@color/black"
 android:textColor="@color/black"
                 android:textSize="18dp"
+                android:id="@+id/Email"
                 android:inputType="textEmailAddress"
 
                 />
@@ -103,6 +104,7 @@ android:textColor="@color/black"
                 android:drawableTint="@color/black"
                 android:textColor="@color/black"
                 android:textSize="18dp"
+                android:id="@+id/LoginPassword"
                 android:inputType="textPassword"
 
                 />
@@ -117,7 +119,7 @@ android:textColor="@color/black"
         android:layout_marginEnd="40dp"
         android:text="Login"
         android:textSize="30dp"
-
+        android:id="@+id/LoginBtn"
         android:layout_marginTop="19.99dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,6 +135,7 @@ android:textColor="@color/black"
             android:layout_gravity="center"
             />
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OR"
@@ -167,6 +170,7 @@ android:textColor="@color/black"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="14dp"
+       android:id="@+id/layoutdirecttosignup"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

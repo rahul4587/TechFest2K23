@@ -141,13 +141,12 @@ ActivityResultLauncher<String> resultLauncher;
         gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
-        gsc=GoogleSignIn.getClient(this,gso);
+        gsc=GoogleSignIn.getClient(getApplicationContext(),gso);
       //Sign in with google
         activitySignupBinding.GoogleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signInIntent = gsc.getSignInIntent();
-                startActivityForResult(signInIntent, 1000);
+             signinwithgoogle();
             }
         });
 
@@ -160,6 +159,11 @@ ActivityResultLauncher<String> resultLauncher;
      }
  });
 
+    }
+
+    private void signinwithgoogle() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
     }
 
     private void checkDataAvailability() {
