@@ -78,6 +78,7 @@ ActivityResultLauncher<String> resultLauncher;
                 TextView textView = (TextView) view;
                 ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) adapterView.getChildAt(0)).setTextSize(13);
+
                 signinmap.put("Designation", ((TextView) adapterView.getChildAt(0)).getText().toString());
                 if(((TextView) adapterView.getChildAt(0)).getText().toString().matches("Farmer")){
                     signinmap.put("FName",activitySignupBinding.Name.getText().toString());
@@ -135,6 +136,7 @@ ActivityResultLauncher<String> resultLauncher;
         activitySignupBinding.SignupBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
+
         checkDataAvailability();
     }
 });

@@ -26,6 +26,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.techfest.agroshop.databinding.ActivityLoginBinding;
 import com.techfest.agroshop.databinding.ActivitySignupBinding;
 
+import Models.FarmersModel;
+
 public class Login extends AppCompatActivity {
 ActivityLoginBinding activityLoginBinding;
     GoogleSignInOptions gso;
@@ -42,10 +44,10 @@ ActivityLoginBinding activityLoginBinding;
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
         gsc= GoogleSignIn.getClient(getApplicationContext(),gso);
-if(auth.getUid()!=null){
-    Toast.makeText(this, "New Actiivity", Toast.LENGTH_SHORT).show();
-
-}
+//if(auth.getUid()!=null){
+//    Toast.makeText(this, "New Actiivity", Toast.LENGTH_SHORT).show();
+//
+//}
         activityLoginBinding.GoogleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
