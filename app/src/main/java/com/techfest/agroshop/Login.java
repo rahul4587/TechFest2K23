@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,9 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.techfest.agroshop.databinding.ActivityLoginBinding;
-import com.techfest.agroshop.databinding.ActivitySignupBinding;
-
-import Models.FarmersModel;
 
 public class Login extends AppCompatActivity {
 ActivityLoginBinding activityLoginBinding;
@@ -34,6 +36,7 @@ ActivityLoginBinding activityLoginBinding;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     GoogleSignInClient gsc;
     ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,60 @@ activityLoginBinding.LoginBtn.setOnClickListener(new View.OnClickListener() {
     }
 });
 
+activityLoginBinding.ForgotPassword.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        showForgotPassDialog();
     }
+});
+    }
+
+    private void showForgotPassDialog() {
+        final Dialog dialog=new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottom_sheet_layout);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        EditText email=dialog.findViewById(R.id.ForgotEmailEdittext);
+dialog.findViewById(R.id.sendRecoveryEmailBtn).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        if(TextUtils.isEmpty(email.getText().toString())){
+        email.setError("Required");
+        email.setText("");
+    } else {
+        sendRecoveryEmail(email.getText().toString(),dialog);
+    }
+
+    }
+});
+
+    }
+
+    private void sendRecoveryEmail(String email,Dialog dialog) {
+         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+             @Override
+             public void onComplete(@NonNull Task<Void> task) {
+if(task.isSuccessful()){
+
+    dialog.dismiss();
+    Toast.makeText(Login.this, "Check Your Email", Toast.LENGTH_SHORT).show();
+
+}
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Toast.makeText(Login.this, e.getLocalizedMessage()
+                         , Toast.LENGTH_SHORT).show();
+             }
+         });
+
+
+    }
+
 
     private void checkData() {
         if (TextUtils.isEmpty(activityLoginBinding.Email.getText().toString())) {
