@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.techfest.agroshop02"
+>
+<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,14 +16,14 @@
         android:theme="@style/Theme.AgroShop"
         tools:targetApi="31">
         <activity
-            android:name=".Login"
+            android:name="com.techfest.agroshop02.Login"
             android:exported="true"
             android:theme="@style/Base.Theme.AgroShopLogin">
 
 
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name="com.techfest.agroshop02.SignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +32,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.techfest.agroshop02.MainActivity"
             android:exported="true"></activity>
+        <service
+            android:name="com.techfest.agroshop02.firebase.MassagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

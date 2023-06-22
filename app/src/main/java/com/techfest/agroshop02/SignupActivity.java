@@ -1,4 +1,4 @@
-package com.techfest.agroshop;
+package com.techfest.agroshop02;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -37,11 +37,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.techfest.agroshop.databinding.ActivitySignupBinding;
+
+import com.techfest.agroshop02.databinding.ActivitySignupBinding;
 
 import java.util.HashMap;
 
@@ -271,7 +274,10 @@ activitySignupBinding.spinnerLanguages.setPrompt("Required");
 
                            }
                        });
-
+                       FirebaseFirestore firestore= FirebaseFirestore.getInstance();
+                       firestore.collection("Users").add(signinmap).addOnSuccessListener(documentReference -> {
+                           Toast.makeText(SignupActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                       });
 
                    }
                     }

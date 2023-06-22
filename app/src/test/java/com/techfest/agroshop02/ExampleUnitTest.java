@@ -1,4 +1,4 @@
-package com.techfest.agroshop;
+package com.techfest.agroshop02;
 
 import org.junit.Test;
 

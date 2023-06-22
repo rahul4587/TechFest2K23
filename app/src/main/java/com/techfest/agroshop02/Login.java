@@ -1,4 +1,4 @@
-package com.techfest.agroshop;
+package com.techfest.agroshop02;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +28,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.techfest.agroshop.databinding.ActivityLoginBinding;
+
+import com.techfest.agroshop02.databinding.ActivityLoginBinding;
+
 
 public class Login extends AppCompatActivity {
 ActivityLoginBinding activityLoginBinding;

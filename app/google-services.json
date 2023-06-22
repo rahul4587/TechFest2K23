@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "460416314987",
-    "project_id": "agroshop-cf599",
-    "storage_bucket": "agroshop-cf599.appspot.com"
+    "project_number": "1042551890964",
+    "project_id": "agroshop-c2029",
+    "storage_bucket": "agroshop-c2029.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:460416314987:android:92b3284c90fd24194bcb2e",
+        "mobilesdk_app_id": "1:1042551890964:android:a627ac89f55a23f0dbf301",
         "android_client_info": {
-          "package_name": "com.techfest.agroshop"
+          "package_name": "com.techfest.agroshop02"
         }
       },
       "oauth_client": [
         {
-          "client_id": "460416314987-l5smevs5qsen05jqq1farcn07dp5vn35.apps.googleusercontent.com",
+          "client_id": "1042551890964-japm5rk0dtlon43qbtc81fug1gbe0u84.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.techfest.agroshop",
+            "package_name": "com.techfest.agroshop02",
             "certificate_hash": "0849b3442ee87034d6f65e7090e17817b0c17f8c"
           }
         },
         {
-          "client_id": "460416314987-ln9og6gb36f8vu26q3kvrghjuiai6g2m.apps.googleusercontent.com",
+          "client_id": "1042551890964-mb82f9fupbdt00jj1b2mqeks0v99gk90.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-FuxBAZRgUqBeO9j2NkYz4-WEbYwoY9U"
+          "current_key": "AIzaSyAmv2mMpGm_edvtFR51nGyUlveT993H1rY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "460416314987-ln9og6gb36f8vu26q3kvrghjuiai6g2m.apps.googleusercontent.com",
+              "client_id": "1042551890964-mb82f9fupbdt00jj1b2mqeks0v99gk90.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
