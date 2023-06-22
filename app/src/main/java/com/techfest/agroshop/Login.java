@@ -37,7 +37,6 @@ ActivityLoginBinding activityLoginBinding;
     GoogleSignInClient gsc;
     ProgressDialog progressDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
