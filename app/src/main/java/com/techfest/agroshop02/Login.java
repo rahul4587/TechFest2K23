@@ -29,7 +29,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.techfest.agroshop02.databinding.ActivityLoginBinding;
+
+import Models.FarmersModel;
+import Models.PreferanceManager;
 
 
 public class Login extends AppCompatActivity {
@@ -38,12 +43,26 @@ ActivityLoginBinding activityLoginBinding;
     FirebaseAuth auth=FirebaseAuth.getInstance();
     GoogleSignInClient gsc;
     ProgressDialog progressDialog;
+    PreferanceManager preferanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(activityLoginBinding.getRoot());
+
+        preferanceManager=new PreferanceManager(getApplicationContext());
+
+if(preferanceManager.getBoolean(FarmersModel.KEY_IS_SIGNED_IN)){
+    startActivity(new Intent(Login.this,MainActivity.class));
+
+
+    finish();
+}
+
+
+
+
         gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
@@ -153,7 +172,39 @@ if(task.isSuccessful()){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                      if(task.isSuccessful()){
+                      if(task.isSuccessful()&& task.getResult()!=null){
+
+                          FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+                          firebaseFirestore.collection(FarmersModel.KEY_COLLECTION_USER)
+                                  .whereEqualTo(FarmersModel.KEY_EMAIL,activityLoginBinding.Email.getText().toString())
+                                          .whereEqualTo(FarmersModel.KEY_PAASSWORD,activityLoginBinding.LoginPassword.getText().toString())
+                                                  .get()
+                                                          .addOnCompleteListener(task1 -> {
+if(task1.isSuccessful()&&task1.getResult().getDocuments().size()>0){
+
+    DocumentSnapshot documentSnapshot=task1.getResult().getDocuments().get(0);
+    preferanceManager.putBoolean(FarmersModel.KEY_IS_SIGNED_IN,true);
+    preferanceManager.putString(FarmersModel.KEY_USERID,documentSnapshot.getId());
+   if(documentSnapshot.getString(FarmersModel.KEY_FNAME)!=null){
+       preferanceManager.putString(FarmersModel.KEY_FNAME,documentSnapshot.getString(FarmersModel.KEY_FNAME));
+   }else if(documentSnapshot.getString(FarmersModel.KEY_CNAME)!=null){
+       preferanceManager.putString(FarmersModel.KEY_CNAME,documentSnapshot.getString(FarmersModel.KEY_CNAME));
+   } else if (documentSnapshot.getString(FarmersModel.KEY_DNAME)!=null){
+       preferanceManager.putString(FarmersModel.KEY_DNAME,documentSnapshot.getString(FarmersModel.KEY_DNAME));
+   }
+   preferanceManager.putString(FarmersModel.KEY_PICTURE_URI,documentSnapshot.getString(FarmersModel.KEY_PICTURE_URI));
+   Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+   intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+   startActivity(intent);
+}
+else{
+    Toast.makeText(Login.this, "Unable to Signin", Toast.LENGTH_SHORT).show();
+}
+
+
+                                                          });
+
+
                           Toast.makeText(Login.this, "Enter new activity", Toast.LENGTH_SHORT).show();
                       }
                     }
@@ -205,4 +256,7 @@ if(task.isSuccessful()){
     private void directtosignup(){
         startActivity(new Intent(Login.this,SignupActivity.class));
     }
+
+
+
 }

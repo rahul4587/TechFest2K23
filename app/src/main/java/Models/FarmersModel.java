@@ -2,6 +2,22 @@ package Models;
 
 public class FarmersModel {
    String Id,Name,Location,Time,PictureUri,Phone,Email,Password,Designation;
+   public  static final String KEY_COLLECTION_USER="USERS";
+   public  static final String KEY_DNAME="DName";
+   public  static final String KEY_EMAIL="Email";
+   public  static final String KEY_PAASSWORD="Password";
+   public  static final String KEY_PREFERENCE_NAME="ChatAppPreferance";
+   public  static final String KEY_IS_SIGNED_IN="IsSignedIn";
+   public  static final String KEY_USERID="UserId";
+   public  static final String KEY_IMAGE="Image";
+   public  static final String KEY_PHONE_NUMBER="Phone";
+   public  static final String KEY_FNAME="FName";
+   public  static final String KEY_CNAME="CName";
+   public  static final String KEY_PICTURE_URI="PictureUri";
+
+   public  static final String KEY_DESIGNATION="Designation";
+
+
 
     public FarmersModel() {
     }

@@ -19,21 +19,22 @@
             android:name="com.techfest.agroshop02.Login"
             android:exported="true"
             android:theme="@style/Base.Theme.AgroShopLogin">
-
-
-        </activity>
-        <activity
-            android:name="com.techfest.agroshop02.SignupActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name="com.techfest.agroshop02.SignupActivity"
+            android:exported="true">
+
         </activity>
         <activity
             android:name="com.techfest.agroshop02.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:theme="@style/Base.Theme.AgroShopLogin"></activity>
         <service
             android:name="com.techfest.agroshop02.firebase.MassagingService"
             android:exported="true">

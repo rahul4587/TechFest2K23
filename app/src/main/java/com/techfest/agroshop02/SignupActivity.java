@@ -49,24 +49,27 @@ import com.techfest.agroshop02.databinding.ActivitySignupBinding;
 import java.util.HashMap;
 
 import Models.FarmersModel;
+import Models.PreferanceManager;
 
 public class SignupActivity extends AppCompatActivity {
 ActivitySignupBinding activitySignupBinding;
+PreferanceManager preferanceManager;
 FirebaseAuth auth=FirebaseAuth.getInstance();
 FirebaseDatabase database=FirebaseDatabase.getInstance();
-DatabaseReference databaseReference=database.getReference("Users");
+DatabaseReference databaseReference=database.getReference(FarmersModel.KEY_COLLECTION_USER);
 FirebaseStorage storage=FirebaseStorage.getInstance();
 ActivityResultLauncher<String> resultLauncher;
     ProgressDialog progressDialog;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     HashMap<String, Object> signinmap=new HashMap<>();
+    String uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activitySignupBinding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(activitySignupBinding.getRoot());
-
+preferanceManager=new PreferanceManager(getApplicationContext());
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -82,13 +85,13 @@ ActivityResultLauncher<String> resultLauncher;
                 ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) adapterView.getChildAt(0)).setTextSize(13);
 
-                signinmap.put("Designation", ((TextView) adapterView.getChildAt(0)).getText().toString());
+                signinmap.put(FarmersModel.KEY_DESIGNATION, ((TextView) adapterView.getChildAt(0)).getText().toString());
                 if(((TextView) adapterView.getChildAt(0)).getText().toString().matches("Farmer")){
-                    signinmap.put("FName",activitySignupBinding.Name.getText().toString());
+                    signinmap.put(FarmersModel.KEY_FNAME,activitySignupBinding.Name.getText().toString());
                 } else if (((TextView) adapterView.getChildAt(0)).getText().toString().matches("Carrier")) {
-                    signinmap.put("CName",activitySignupBinding.Name.getText().toString());
+                    signinmap.put(FarmersModel.KEY_CNAME,activitySignupBinding.Name.getText().toString());
                 } else if (((TextView) adapterView.getChildAt(0)).getText().toString().matches("Distributor")) {
-                    signinmap.put("DName",activitySignupBinding.Name.getText().toString());
+                    signinmap.put(FarmersModel.KEY_DNAME,activitySignupBinding.Name.getText().toString());
                 }
                 else {
                     Toast.makeText(SignupActivity.this, "Choose correct one ", Toast.LENGTH_SHORT).show();
@@ -117,14 +120,14 @@ ActivityResultLauncher<String> resultLauncher;
                 public void onActivityResult(Uri result) {
                     activitySignupBinding.profileImage.setImageURI(result);
 
-                    final StorageReference storageReference = storage.getReference("Users").child(activitySignupBinding.Phone.getText().toString());
+                    final StorageReference storageReference = storage.getReference(FarmersModel.KEY_COLLECTION_USER).child(activitySignupBinding.Phone.getText().toString());
                     storageReference.putFile(result).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    signinmap.put("PictureUri",uri.toString());
+                                    signinmap.put(FarmersModel.KEY_PICTURE_URI,uri.toString());
                                     Toast.makeText(SignupActivity.this, "Image Saved", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -217,21 +220,38 @@ else {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
 
-                        signinmap.put("Email",activitySignupBinding.Email.getText().toString());
-                        signinmap.put("key",activitySignupBinding.Password.getText().toString());
-                        signinmap.put("Phone",activitySignupBinding.Phone.getText().toString());
-signinmap.put("Uid",auth.getUid());
+                        signinmap.put(FarmersModel.KEY_EMAIL,activitySignupBinding.Email.getText().toString());
+                        signinmap.put(FarmersModel.KEY_PAASSWORD,activitySignupBinding.Password.getText().toString());
+                        signinmap.put(FarmersModel.KEY_PHONE_NUMBER,activitySignupBinding.Phone.getText().toString());
+signinmap.put(FarmersModel.KEY_USERID,auth.getUid());
                         activitySignupBinding.spinnerLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 TextView textView = (TextView) view;
-                                signinmap.put("Designation", ((TextView) adapterView.getChildAt(0)).getText().toString());
+                                signinmap.put(FarmersModel.KEY_DESIGNATION, ((TextView) adapterView.getChildAt(0)).getText().toString());
                                 if(((TextView) adapterView.getChildAt(0)).getText().toString()=="Farmer"){
-                                    signinmap.put("FName",activitySignupBinding.Name.getText().toString());
+
+                                    signinmap.put(FarmersModel.KEY_FNAME,activitySignupBinding.Name.getText().toString());
+                                    signinmap.put(FarmersModel.KEY_CNAME,null);
+                                    signinmap.put(FarmersModel.KEY_DNAME,null);
+
+                                    preferanceManager.putString(FarmersModel.KEY_FNAME,activitySignupBinding.Name.getText().toString());
+                                    preferanceManager.putString(FarmersModel.KEY_CNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_DNAME,null);
                                 } else if (((TextView) adapterView.getChildAt(0)).getText().toString()=="Carrier") {
-                                    signinmap.put("CName",activitySignupBinding.Name.getText().toString());
+                                    signinmap.put(FarmersModel.KEY_CNAME,activitySignupBinding.Name.getText().toString());
+                                    signinmap.put(FarmersModel.KEY_FNAME,null);
+                                    signinmap.put(FarmersModel.KEY_DNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_FNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_DNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_CNAME,activitySignupBinding.Name.getText().toString());
                                 } else if (((TextView) adapterView.getChildAt(0)).getText().toString()=="Distributor") {
-                                    signinmap.put("DName",activitySignupBinding.Name.getText().toString());
+                                    signinmap.put(FarmersModel.KEY_DNAME,activitySignupBinding.Name.getText().toString());
+                                    signinmap.put(FarmersModel.KEY_CNAME,null);
+                                    signinmap.put(FarmersModel.KEY_FNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_CNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_FNAME,null);
+                                    preferanceManager.putString(FarmersModel.KEY_DNAME,activitySignupBinding.Name.getText().toString());
                                 }
                                 else {
                                     Toast.makeText(SignupActivity.this, "Choose correct one ", Toast.LENGTH_SHORT).show();
@@ -251,6 +271,7 @@ activitySignupBinding.spinnerLanguages.setPrompt("Required");
                            public void onDataChange(@NonNull DataSnapshot snapshot) {
                                FarmersModel picture=snapshot.getValue(FarmersModel.class);
 
+uri=picture.getPictureUri();
                                Picasso.get().load(String.valueOf(picture.getPictureUri())).into(activitySignupBinding.profileImage);
                            }
 
@@ -275,8 +296,17 @@ activitySignupBinding.spinnerLanguages.setPrompt("Required");
                            }
                        });
                        FirebaseFirestore firestore= FirebaseFirestore.getInstance();
-                       firestore.collection("Users").add(signinmap).addOnSuccessListener(documentReference -> {
+                       firestore.collection(FarmersModel.KEY_COLLECTION_USER).add(signinmap).addOnSuccessListener(documentReference -> {
+
+                           preferanceManager.putBoolean(FarmersModel.KEY_IS_SIGNED_IN,true);
+                           preferanceManager.putString(FarmersModel.KEY_USERID,documentReference.getId());
+    preferanceManager.putString(FarmersModel.KEY_PICTURE_URI,uri);
+
+
                            Toast.makeText(SignupActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                           Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                           startActivity(intent);
                        });
 
                    }
