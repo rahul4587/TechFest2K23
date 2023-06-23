@@ -16,6 +16,7 @@ public class FarmersModel {
    public  static final String KEY_PICTURE_URI="PictureUri";
 
    public  static final String KEY_DESIGNATION="Designation";
+   public  static final String KEY_FCM="fcmToken";
 
 
 

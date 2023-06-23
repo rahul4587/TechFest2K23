@@ -55,8 +55,6 @@ ActivityLoginBinding activityLoginBinding;
 
 if(preferanceManager.getBoolean(FarmersModel.KEY_IS_SIGNED_IN)){
     startActivity(new Intent(Login.this,MainActivity.class));
-
-
     finish();
 }
 
