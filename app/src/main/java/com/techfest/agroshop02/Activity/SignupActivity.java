@@ -1,4 +1,4 @@
-package com.techfest.agroshop02;
+package com.techfest.agroshop02.Activity;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -44,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import com.techfest.agroshop02.R;
 import com.techfest.agroshop02.databinding.ActivitySignupBinding;
 
 import java.util.HashMap;
@@ -304,7 +305,7 @@ uri=picture.getPictureUri();
 
 
                            Toast.makeText(SignupActivity.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-                           Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                           Intent intent=new Intent(getApplicationContext(), MainActivity.class);
                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                            startActivity(intent);
                        });

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignupActivity"
+    tools:context=".Activity.SignupActivity"
     style="@style/Base.Theme.AgroShop"
 
     android:layout_margin="2dp">

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/outline_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/outline_bookmark"
+            android:title="My Orders" />
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/baseline_shopping_cart"
+            android:title="My cart" />
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/outline_account_circle"
+            android:title="My Account" />
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/outline_file"
+            android:title="Terms and Policies " />
+        <item
+            android:id="@+id/nav_logOut"
+            android:icon="@drawable/outline_logout"
+            android:title="Log Out" />
+    </group>
+</menu>

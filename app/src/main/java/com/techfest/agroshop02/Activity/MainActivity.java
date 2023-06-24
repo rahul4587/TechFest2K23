@@ -1,14 +1,19 @@
-package com.techfest.agroshop02;
+package com.techfest.agroshop02.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.techfest.agroshop02.R;
 import com.techfest.agroshop02.databinding.ActivityMainBinding;
 
 import Models.FarmersModel;
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         loadUserDetails();
 
     }
+
     private  void loadUserDetails(){
         if(preferanceManager.getString(FarmersModel.KEY_FNAME)!=null)
             binding.TextView.setText(preferanceManager.getString(FarmersModel.KEY_FNAME));

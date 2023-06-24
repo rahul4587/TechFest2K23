@@ -9,10 +9,20 @@
     </style>
 
     <style name="Theme.AgroShop" parent="Base.Theme.AgroShop" />
+
     <style name="Base.Theme.AgroShopLogin" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="android:statusBarColor" tools:targetApi="l">#FFCD1A</item>
         <item name="hintTextColor" tools:targetApi="l">#FFFFFF</item>
     </style>
+
+    <style name="Theme.AgroShop.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AgroShop.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.AgroShop.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

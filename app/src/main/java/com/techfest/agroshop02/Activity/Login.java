@@ -1,4 +1,4 @@
-package com.techfest.agroshop02;
+package com.techfest.agroshop02.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.techfest.agroshop02.R;
 import com.techfest.agroshop02.databinding.ActivityLoginBinding;
 
 import Models.FarmersModel;
@@ -50,11 +52,18 @@ ActivityLoginBinding activityLoginBinding;
         super.onCreate(savedInstanceState);
         activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(activityLoginBinding.getRoot());
+        Button LogInBtn = (Button) findViewById(R.id.LoginBtn);
+        LogInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NavDashboard.class));
+            }
+        });
 
         preferanceManager=new PreferanceManager(getApplicationContext());
 
 if(preferanceManager.getBoolean(FarmersModel.KEY_IS_SIGNED_IN)){
-    startActivity(new Intent(Login.this,MainActivity.class));
+    startActivity(new Intent(Login.this, MainActivity.class));
     finish();
 }
 
@@ -252,9 +261,11 @@ else{
     }
 
     private void directtosignup(){
-        startActivity(new Intent(Login.this,SignupActivity.class));
+        startActivity(new Intent(Login.this, SignupActivity.class));
     }
 
 
-
+    public void logIn(View view) {
+        startActivity(new Intent(getApplicationContext(), NavDashboard.class));
+    }
 }
